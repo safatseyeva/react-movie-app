@@ -1,0 +1,67 @@
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+
+module.exports = {
+  context: path.resolve(__dirname, 'src'),
+  entry: './index.tsx',
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js','.jsx']
+  }, 
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'awesome-typescript-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader'
+        ],
+        exclude: /\.module\.css$/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true
+            }
+          }
+        ],
+        include: /\.module\.css$/
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000
+          }
+        }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+        use: 'file-loader?name=assets/[name].[hash].[ext]'
+      }
+    ]
+  },
+  plugins: [
+    new CaseSensitivePathsPlugin(),
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    })
+  ]
+};
