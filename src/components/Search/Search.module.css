@@ -1,0 +1,30 @@
+.search {
+  margin: 50px 120px;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+.searchForm {
+  margin-bottom: 15px;
+}
+
+.searchForm input[type=text],
+.searchForm button {
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 22px;
+  border-radius: 2px;
+}
+
+.searchForm input[type=text] {
+  flex-grow: 1;
+  background-color: rgba(66,66,66,0.68);
+  margin-right: 15px;
+}
+
+.searchForm button {
+  width: 230px;
+  background-color: #f65261;
+}
