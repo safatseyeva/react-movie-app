@@ -20,9 +20,9 @@ const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => {
 
   const onSwitherChange = (value: number) => {
     setActiveSwitcherOption(switcherSettings.options[value]);
-  }
+  };
 
-  const onSubmitClick = (value: string) => {
+  const onSubmitClick = (value: string): void => {
     props.onSearch({
       searchStr: value,
       searchType: activeSwitcherOption
