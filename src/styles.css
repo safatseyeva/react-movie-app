@@ -87,3 +87,7 @@ input {
 .r-align {
   text-align: right;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

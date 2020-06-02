@@ -14,7 +14,7 @@ module.exports = merge(webpackCommonConfig, {
     contentBase: path.join(__dirname, 'dist'),
     historyApiFallback: true,
     compress: true,
-    port: 3000
+    port: 3333
   },
   plugins: [
     new MiniCssExtractPlugin({

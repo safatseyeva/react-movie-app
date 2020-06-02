@@ -1,47 +1,26 @@
 import * as React from 'react';
 import { useState } from 'react';
-import Header from './components/Header/Header.component';
 import Footer from './components/Footer/Footer.component';
-import Search from './components/Search/Search.component';
-import ResultsHeader from './components/ResultsHeader/ResultsHeader.component';
-import MoviesList from './components/Movies/MoviesList.component';
-
-export interface SearchParams {
-  searchStr: string;
-  searchType: string;
-}
+import MoviesPage from './components/MoviesPage/MoviesPage.component';
+import MovieItemPage from './components/MovieItemPage/MovieItemPage.component';
+import { Movie } from './components/Movies/MoviesList.component';
 
 const App: React.FunctionComponent = ():JSX.Element => {
-  const [seachParams, setSearchParams] = useState({
-    searchStr: '',
-    searchType: ''
-  });
-  const [sortBy, setSortBy] = useState('');
-  const [resultsNumber, setResultsNumber] = useState(0);
+  const [movieItem, setMovieItem] = useState<Movie>();
 
-  const onSearch = (searchObj: SearchParams): void => {
-    setSearchParams(searchObj);
+  const onMovieClick = (movie: Movie) => {
+    setMovieItem(movie);
   };
 
-  const onSort = (sortType: string): void => {
-    setSortBy(sortType);
-  };
-
-  const onMoviesNumberChanged = (moviesNumber: number): void => {
-    setResultsNumber(moviesNumber);
+  const onBackToSearchClicked = () => {
+    setMovieItem(undefined);
   };
 
   return (
     <div className='main d-flex flex-column'>
-      <Header />
-      <section>
-        <Search onSearch={onSearch} />
-        <ResultsHeader resultsNumber={resultsNumber} onSort={onSort} />
-        <MoviesList 
-          searchParams={seachParams} 
-          sortBy={sortBy}
-          onMoviesNumberChanged={onMoviesNumberChanged} />
-      </section>
+      {movieItem ? 
+        <MovieItemPage movie={movieItem} onBackToSearchClicked={onBackToSearchClicked} /> 
+        : <MoviesPage onMovieClick={onMovieClick}/>}
       <Footer/>
     </div>
   );

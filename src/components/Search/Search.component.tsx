@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Switcher, { SwitcherSettings } from '../Switcher/Switcher.component';
 import SearchForm from './SearchForm.component';
 import * as css from './Search.module.css';
-import { SearchParams } from '../../App';
+import { SearchParams } from '../MoviesPage/MoviesPage.component';
 
 interface SearchProps {
   onSearch(searchObj: SearchParams): void;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import MoviesListMock from './MoviesList.mock';
 import MovieCard from './MovieCard.component';
 import { sortSwitcherSettings } from '../ResultsHeader/ResultsHeader.component';
-import { SearchParams } from '../../App';
+import { SearchParams } from '../MoviesPage/MoviesPage.component';
 import * as css from './Movies.module.css';
 
 export interface Movie {
@@ -11,12 +11,17 @@ export interface Movie {
   year: number;
   genre: string;
   rating: number;
+  duration: string;
+  description: string;
 }
 
 interface MoviesListProps {
-  searchParams: SearchParams;
-  sortBy: string;
-  onMoviesNumberChanged(moviesNumber: number): void;
+  searchParams?: SearchParams;
+  sortBy?: string;
+  filterBy?: string;
+  activeMovieId?: number;
+  onMoviesNumberChanged?(moviesNumber: number): void;
+  onMovieClick(movie: Movie): void
 }
 
 interface MoviesListState {
@@ -42,13 +47,15 @@ class MoviesList extends React.Component<MoviesListProps, MoviesListState> {
   }
 
   componentDidUpdate(): void {
-    this.props.onMoviesNumberChanged(this.moviesArr.length);
+    if (this.props.onMoviesNumberChanged) {
+      this.props.onMoviesNumberChanged(this.moviesArr.length);
+    }
   }
 
   search = (): void => {
     this.moviesArr = this.moviesArr.filter((movie: GenericObject) => {
-      const movieValue = movie[this.props.searchParams.searchType].toLowerCase();
-      return movieValue.indexOf(this.props.searchParams.searchStr.toLowerCase()) > -1;
+      const movieValue = this.props.searchParams && movie[this.props.searchParams.searchType].toLowerCase();
+      return this.props.searchParams && movieValue.indexOf(this.props.searchParams.searchStr.toLowerCase()) > -1;
     });
   }
 
@@ -60,19 +67,34 @@ class MoviesList extends React.Component<MoviesListProps, MoviesListState> {
     this.moviesArr.sort((a: GenericObject, b: GenericObject) => b[sorting] - a[sorting]);
   }
 
+  filter = (): void => {
+    const genre = this.moviesArr
+      .find((movie: Movie) => movie.id === this.props.activeMovieId)?.genre;
+
+    this.moviesArr = this.moviesArr
+      .filter((movie: Movie) => movie.genre === genre && movie.id !== this.props.activeMovieId);
+  }
+
   render(): React.ReactNode {
     if (this.state.movies.length) {
       this.moviesArr = [...this.state.movies];
 
-      if (this.props.searchParams.searchStr) {
+      if (this.props.searchParams && this.props.searchParams.searchStr) {
         this.search();
       }
 
       if (this.moviesArr.length) {
-        this.sort();
+        if (this.props.filterBy && this.props.activeMovieId) {
+          this.filter();
 
+        } else {
+          this.sort();
+        }
+          
         const MoviesComponents: Array<JSX.Element> = this.moviesArr.map((movie: Movie) => (
-          <MovieCard key={movie.id} item={movie} />
+          <div key={movie.id} onClick={() => this.props.onMovieClick(movie)} className='cursor-pointer'>
+            <MovieCard item={movie} />
+          </div>
         ));
     
         return <div className={`d-flex flex-wrap justify-between ${css.container}`}>{MoviesComponents}</div>;

@@ -5,10 +5,7 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  entry: {
-    main: './index.tsx',
-    movie: './movie.tsx'
-  },
+  entry: './index.tsx',
   resolve: {
     extensions: ['.tsx', '.ts', '.js','.jsx']
   }, 
@@ -59,14 +56,7 @@ module.exports = {
   plugins: [
     new CaseSensitivePathsPlugin(),
     new HtmlWebpackPlugin({
-      filename: './index.html',
-      template: './index.html',
-      chunks: ['vendor', 'main']
-    }),
-    new HtmlWebpackPlugin({
-      filename: './movie.html',
-      template: './movie.html',
-      chunks: ['vendor', 'movie']
+      template: './index.html'
     })
   ]
 };
