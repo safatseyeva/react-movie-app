@@ -1,0 +1,10 @@
+.resultsHeader {
+  height: 70px;
+  padding: 0 120px;
+  background: #555;
+}
+
+.resultsHeaderItem {
+  flex-grow: 1;
+  width: 50%;
+}

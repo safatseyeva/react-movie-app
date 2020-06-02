@@ -5,7 +5,10 @@ const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  entry: './index.tsx',
+  entry: {
+    main: './index.tsx',
+    movie: './movie.tsx'
+  },
   resolve: {
     extensions: ['.tsx', '.ts', '.js','.jsx']
   }, 
@@ -44,24 +47,26 @@ module.exports = {
         include: /\.module\.css$/
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000
-          }
-        }
-      },
-      {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        use: 'file-loader?name=assets/[name].[hash].[ext]'
+        loader: 'file-loader',
+        options: {
+          name: 'css/[name].[hash].[ext]',
+          publicPath: '/'
+        }
       }
     ]
   },
   plugins: [
     new CaseSensitivePathsPlugin(),
     new HtmlWebpackPlugin({
-      template: './index.html'
+      filename: './index.html',
+      template: './index.html',
+      chunks: ['vendor', 'main']
+    }),
+    new HtmlWebpackPlugin({
+      filename: './movie.html',
+      template: './movie.html',
+      chunks: ['vendor', 'movie']
     })
   ]
 };
