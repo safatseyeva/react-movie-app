@@ -1,0 +1,24 @@
+.container {
+  margin: 60px;
+}
+
+.movieCard {
+  flex-grow: 1;
+  margin-top: 20px;
+  max-width: 320px;
+}
+
+.movieCard img {
+  max-width: 320px;
+}
+
+.movieItem {
+  margin: 0px 60px 25px;
+  padding: 20px 60px 30px;
+  background: #555;
+}
+
+.movieItem img{
+  max-width: 280px;
+}
+

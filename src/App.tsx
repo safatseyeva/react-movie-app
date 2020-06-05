@@ -1,14 +1,32 @@
 import * as React from 'react';
-import { ReactElement } from 'react';
+import { useState } from 'react';
+import Footer from './components/Footer/Footer.component';
+import MoviesPage from './components/MoviesPage/MoviesPage.component';
+import MovieItemPage from './components/MovieItemPage/MovieItemPage.component';
+import { Movie } from './components/Movies/MoviesList.component';
+import ErrorBoundary from './ErrorBoundary.component';
 
-export default function App(): ReactElement  {
-  const headerElement = React.createElement(
-    'h1',
-    { className: 'greeting uppercase' },
-    'Find your movie'
-  );
+const App: React.FunctionComponent = ():JSX.Element => {
+  const [movieItem, setMovieItem] = useState<Movie>();
+
+  const onMovieClick = (movie: Movie) => {
+    setMovieItem(movie);
+  };
+
+  const onBackToSearchClicked = () => {
+    setMovieItem(undefined);
+  };
 
   return (
-    <div>{headerElement}</div>
+    <ErrorBoundary>
+      <div className='main d-flex flex-column'>
+        {movieItem ? 
+          <MovieItemPage movie={movieItem} onBackToSearchClicked={onBackToSearchClicked} /> 
+          : <MoviesPage onMovieClick={onMovieClick}/>}
+        <Footer/>
+      </div>
+    </ErrorBoundary>
   );
-}
+};
+
+export default App;

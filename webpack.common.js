@@ -44,17 +44,12 @@ module.exports = {
         include: /\.module\.css$/
       },
       {
-        test: /\.(png|jpe?g|gif)$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000
-          }
-        }
-      },
-      {
         test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-        use: 'file-loader?name=assets/[name].[hash].[ext]'
+        loader: 'file-loader',
+        options: {
+          name: 'css/[name].[hash].[ext]',
+          publicPath: '/'
+        }
       }
     ]
   },

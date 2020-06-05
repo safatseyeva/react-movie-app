@@ -1,0 +1,21 @@
+.switchOption {
+  padding: 10px 20px;
+  color: #fff;
+  background-color: rgba(50,50,50,0.8);
+}
+
+.switchOption.active {
+  background-color: #f65261;
+}
+
+.switchOption:hover {
+  cursor: pointer;
+}
+
+.switchOption:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+.switchOption:last-child {
+  border-radius: 0 2px 2px 0;
+}

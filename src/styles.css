@@ -1,6 +1,93 @@
-.greeting {
-  color: blueviolet;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;800&display=swap');
+
+html, body,
+#root  {
+  min-height: 100%;
+  height: auto;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: #fff;
+}
+
+#root {
+  background-color: #555;
+}
+
+.main {
+  min-height: 100vh;
+  margin: 0 auto;
+  max-width: 1200px;
+  width: 100%;
+  box-shadow: 0 2px 34px 0 rgba(0,0,0,0.27);
+  background: #232323;
+}
+
+#root .main {
+  background: #232323 url('./images/movies-tiles.jpg') no-repeat 0 0;
+}
+
+button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.medium {
+  font-weight: 500;
+}
+
+.extra-light {
+  font-weight: 300;
+}
+
 .uppercase {
   text-transform: uppercase;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.aline-items-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.r-align {
+  text-align: right;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
