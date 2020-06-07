@@ -6,7 +6,6 @@ interface SearchFormProps {
 }
 
 class SearchForm extends React.Component<SearchFormProps> {
-  private isSubmitCalled = false;
   private input: React.RefObject<HTMLInputElement>;
 
   constructor(props: SearchFormProps) {  
@@ -17,15 +16,13 @@ class SearchForm extends React.Component<SearchFormProps> {
   handleSubmit = (event: React.SyntheticEvent<EventTarget>): void => {
     if (this.input.current && this.input.current.value !== '') {
       this.props.onSubmitClick(this.input.current.value);
-      this.isSubmitCalled = true;
     }
     event.preventDefault();
   }
 
   handleBlur = (): void => {
-    if (this.isSubmitCalled && this.input.current && !this.input.current.value) {
+    if (this.input.current && !this.input.current.value) {
       this.props.onSubmitClick('');
-      this.isSubmitCalled = false;
     }
   }
 

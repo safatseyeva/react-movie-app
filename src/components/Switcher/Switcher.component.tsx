@@ -9,28 +9,13 @@ export interface SwitcherSettings {
 
 interface SwitcherProps {
   settings: SwitcherSettings;
+  activeSwitcherId: number;
   onSwitherChange(id: number): void
 }
 
-interface SwitcherState {
-  activeId: number | null
-}
-
-class Switcher extends React.PureComponent<SwitcherProps, SwitcherState> {
-  constructor(props: SwitcherProps) {
-    super(props);
-    this.state = {
-      activeId: null
-    };
-  }
-
-  componentDidMount(): void {
-    this.setState({ activeId: this.props.settings.activeId });
-  }
-
+class Switcher extends React.PureComponent<SwitcherProps> {
   handleSwitcherChange = (id: number): void => {
-    if (id !== this.state.activeId) {
-      this.setState({ activeId: id });
+    if (id !== this.props.activeSwitcherId) {
       this.props.onSwitherChange(id);
     }
   };
@@ -39,10 +24,10 @@ class Switcher extends React.PureComponent<SwitcherProps, SwitcherState> {
     const optionsComponents = this.props.settings.options.map(
       (option, index) => (
         <SwitchOption
-          key={index}
+          key={option}
           option={option}
           optionId={index}
-          active={index === this.state.activeId ? true : false}
+          active={index === this.props.activeSwitcherId ? true : false}
           handleSwitcherChange={this.handleSwitcherChange}
         />
       )
