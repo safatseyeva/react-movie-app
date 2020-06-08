@@ -9,9 +9,10 @@
     "moduleResolution": "node",
     "target": "es5",
     "allowJs": true,
-    "jsx": "react"
+    "jsx": "react",
+    "esModuleInterop": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*", "jest.config.js"
   ]
 }

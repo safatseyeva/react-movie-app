@@ -5,7 +5,7 @@ import MovieItem from '../Movies/MovieItem.component';
 import MoviesList, { Movie } from '../Movies/MoviesList.component';
 import css from './MovieItemPage.module.css';
 
-interface MovieItemPageProps {
+export interface MovieItemPageProps {
   movie: Movie;
   moviesToShow: Array<Movie>|undefined;
   onBackToSearchClicked(): void
