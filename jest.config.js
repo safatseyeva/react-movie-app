@@ -15,13 +15,21 @@ module.exports = {
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 
   moduleNameMapper: {
-    "\\.  (jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2)$": "<rootDir>/__mocks__/fileMock.js",
-    "\\.(css|less)$": "identity-obj-proxy"
+    "\\.(jpg|jpeg|png|gif|css|less)$": "identity-obj-proxy"
   },
 
   collectCoverageFrom: [
     "src/**/*.{ts,tsx}",
     "!src/index.tsx",
     "!src/**/*.d.ts"
-  ]
+  ],
+
+  coverageThreshold: {
+    "global": {
+      "branches": 80,
+      "functions": 80,
+      "lines": 80,
+      "statements": 80
+    }
+  }
 };

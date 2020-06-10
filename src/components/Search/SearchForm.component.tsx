@@ -28,9 +28,9 @@ class SearchForm extends React.Component<SearchFormProps> {
 
   render(): React.ReactNode {
     return(
-      <form onSubmit={this.handleSubmit} className={`d-flex ${css.searchForm}`}>
+      <form onSubmit={this.handleSubmit} className={`d-flex ${css.searchForm}`} data-testid='search-form'>
         <input type='text' ref={this.input} className='extra-light' onBlur={this.handleBlur} />
-        <button type='submit' className='uppercase'>Submit</button>
+        <button type='submit' className='uppercase' data-testid='search-submit'>Submit</button>
       </form>
     );
   }
