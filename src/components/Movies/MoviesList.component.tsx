@@ -23,16 +23,19 @@ class MoviesList extends React.Component<MoviesListProps> {
       const MoviesComponents: Array<JSX.Element> = this.props.moviesToShow.map((movie: Movie) => (
         <div key={movie.id} 
           data-testid={`movieId_${movie.id}`}
+          data-cy={`movieId_${movie.id}`}
           onClick={() => this.props.onMovieClick(movie)} 
           className='cursor-pointer'>
           <MovieCard item={movie} />
         </div>
       ));
   
-      return <div className={`d-flex flex-wrap justify-between ${css.container}`}>{MoviesComponents}</div>;
+      return <div className={`d-flex flex-wrap justify-between ${css.container}`} data-cy='movies-list'>
+        {MoviesComponents}
+      </div>;
     }
 
-    return <div className={`d-flex ${css.container}`}>No Films Found</div>;
+    return <div className={`d-flex ${css.container}`} data-cy='no-movies'>No Films Found</div>;
   }
 }
 

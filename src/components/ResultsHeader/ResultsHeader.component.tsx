@@ -25,7 +25,7 @@ const ResultsHeader: React.FunctionComponent<ResultsHeaderProps> = (props): JSX.
 	
   return (
     <div className={`d-flex aline-items-center ${css.resultsHeader}`}>
-      <div className={`bold ${css.resultsHeaderItem}`}>{props.resultsNumber} movie(s) found</div>
+      <div className={`bold ${css.resultsHeaderItem}`} data-cy='results-number'>{props.resultsNumber} movie(s) found</div>
       <Switcher 
         settings={sortSwitcherSettings}
         activeSwitcherId={activeSwitcherId} 
