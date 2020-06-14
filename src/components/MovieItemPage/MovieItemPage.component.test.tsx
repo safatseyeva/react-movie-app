@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 
 import MovieItemPage from './MovieItemPage.component';
@@ -7,8 +7,6 @@ import MoviesListMock from '../Movies/MoviesList.mock';
 
 
 jest.mock('../../images/movie_temp.png');
-
-afterEach(cleanup);
 
 const movie = MoviesListMock[0];
 const moviesList = [...MoviesListMock].filter(item => item.id !== movie.id && item.genre === movie.genre);

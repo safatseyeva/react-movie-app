@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import SwitchOption from './SwitchOption.component';
-
-afterEach(cleanup);
 
 describe('<SwitchOption /> component:', () => {
   test('should render and match snapshot', () => {

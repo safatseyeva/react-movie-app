@@ -27,7 +27,7 @@ class Switcher extends React.PureComponent<SwitcherProps> {
           key={option}
           option={option}
           optionId={index}
-          active={index === this.props.activeSwitcherId ? true : false}
+          active={index === this.props.activeSwitcherId}
           handleSwitcherChange={this.handleSwitcherChange}
         />
       )

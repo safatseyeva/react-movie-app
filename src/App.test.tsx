@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import App from './App';
 
 jest.mock('../../images/movie_temp.png');
-
-afterEach(cleanup);
 
 describe('<App /> component:', () => {
   test('should render Movies page', () => {
