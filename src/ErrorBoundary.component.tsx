@@ -5,11 +5,10 @@ class ErrorBoundary extends React.Component {
     hasError: false
   };
 
-  componentDidCatch(error: Error): void {
+  componentDidCatch(): void {
     this.setState({
       hasError: true
     });
-    console.log('ErrorBoundary: ' + error);
   }
 
   render(): React.ReactNode {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Switcher, { SwitcherSettings } from '../Switcher/Switcher.component';
 import * as css from './ResultsHeader.module.css';
 
@@ -14,14 +15,21 @@ export const sortSwitcherSettings: SwitcherSettings = {
 };
 
 const ResultsHeader: React.FunctionComponent<ResultsHeaderProps> = (props): JSX.Element => {
+  const [activeSwitcherId, setActiveSwitcherId] = 
+    useState(sortSwitcherSettings.activeId);
+
   const onSwitherChange = (value: number) => {
+    setActiveSwitcherId(value);
     props.onSort(sortSwitcherSettings.options[value]);
   };
 	
   return (
     <div className={`d-flex aline-items-center ${css.resultsHeader}`}>
-      <div className={`bold ${css.resultsHeaderItem}`}>{props.resultsNumber} movie(s) found</div>
-      <Switcher settings={sortSwitcherSettings} onSwitherChange={onSwitherChange} />
+      <div className={`bold ${css.resultsHeaderItem}`} data-cy='results-number'>{props.resultsNumber} movie(s) found</div>
+      <Switcher 
+        settings={sortSwitcherSettings}
+        activeSwitcherId={activeSwitcherId} 
+        onSwitherChange={onSwitherChange} />
     </div>
   );
 };

@@ -15,17 +15,18 @@ const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => {
     options: ['title', 'genre'],
     activeId: 0
   };
-  const [activeSwitcherOption, setActiveSwitcherOption] = 
-    useState(switcherSettings.options[switcherSettings.activeId]);
+
+  const [activeSwitcherId, setActiveSwitcherId] = 
+    useState(switcherSettings.activeId);
 
   const onSwitherChange = (value: number) => {
-    setActiveSwitcherOption(switcherSettings.options[value]);
+    setActiveSwitcherId(value);
   };
 
   const onSubmitClick = (value: string): void => {
     props.onSearch({
       searchStr: value,
-      searchType: activeSwitcherOption
+      searchType: switcherSettings.options[activeSwitcherId]
     });
   };
 
@@ -33,7 +34,10 @@ const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => {
     <div className={css.search}>
       <h1 className='extra-light uppercase'>Find your movie</h1>
       <SearchForm onSubmitClick={onSubmitClick} />
-      <Switcher settings={switcherSettings} onSwitherChange={onSwitherChange} />
+      <Switcher 
+        settings={switcherSettings}
+        activeSwitcherId={activeSwitcherId}
+        onSwitherChange={onSwitherChange} />
     </div>
   );
 };

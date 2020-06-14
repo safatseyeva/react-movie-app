@@ -14,7 +14,7 @@ const MovieItem: React.FunctionComponent<MoviesItemProps> = (props): JSX.Element
       <div style={{paddingRight: '50px'}}><img src={img} alt='Movie card'/></div>
       <div>
         <div className='d-flex'>
-          <h1 className='extra-light' style={{paddingRight: '30px'}}>{props.movie.title}</h1>
+          <h1 data-testid='movie-item-name' className='extra-light' style={{paddingRight: '30px'}}>{props.movie.title}</h1>
           <p>{props.movie.rating}</p>
         </div>
         <p>{props.movie.genre}</p>

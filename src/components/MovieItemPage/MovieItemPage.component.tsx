@@ -5,31 +5,39 @@ import MovieItem from '../Movies/MovieItem.component';
 import MoviesList, { Movie } from '../Movies/MoviesList.component';
 import css from './MovieItemPage.module.css';
 
-interface MoviesPageProps {
+export interface MovieItemPageProps {
   movie: Movie;
+  moviesToShow: Array<Movie>|undefined;
   onBackToSearchClicked(): void
 }
 
-const MovieItemPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Element => {
+const MovieItemPage: React.FunctionComponent<MovieItemPageProps> = (props): JSX.Element => {
   const [movie, setMovie] = useState<Movie>(props.movie);
+  const [moviesToShow, setMoviesToShow] = useState(props.moviesToShow);
 
-  const onMovieClick = (movie: Movie) => {
-    setMovie(movie);
+  const onMovieClick = (clickedItem: Movie) => {
+    const moviesList = moviesToShow && moviesToShow.filter((item) => clickedItem.id !== item.id);
+    moviesList?.push(movie);
+    setMovie(clickedItem);
+    setMoviesToShow(moviesList);
   };
-
-  const isBackToSearch = true;
 
   return (
     <React.Fragment>
-      <Header isBackToSearch={isBackToSearch} onBackToSearchClicked={props.onBackToSearchClicked} />
+      <Header>
+        <div onClick={props.onBackToSearchClicked}
+          style={{color:'#F65261'}}
+          className='cursor-pointer bold'>
+          Back to search
+        </div>
+      </Header>
       <section>
         <MovieItem movie={movie} />
         <div className={`d-flex aline-items-center ${css.container}`}>
           <div className='bold'>Films by {movie.genre} genre</div>
         </div>
-        <MoviesList 
-          filterBy='genre'
-          activeMovieId={movie.id}
+        <MoviesList
+          moviesToShow={moviesToShow}
           onMovieClick={onMovieClick} />
       </section>
     </React.Fragment>
