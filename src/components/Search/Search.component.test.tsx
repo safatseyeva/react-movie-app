@@ -27,16 +27,16 @@ describe('<Search /> component:', () => {
     fireEvent.click(getByText('Submit'));
 
     expect(onSearch).toBeCalledWith({
-      searchStr: 'Lion',
-      searchType: 'title'
+      search: 'Lion',
+      searchBy: 'title'
     });
 
     fireEvent.blur(input[0], { target: { value: '' } });
     fireEvent.click(getByText('Submit'));
 
     expect(onSearch).toBeCalledWith({
-      searchStr: '',
-      searchType: 'title'
+      search: '',
+      searchBy: 'title'
     });
   });
 

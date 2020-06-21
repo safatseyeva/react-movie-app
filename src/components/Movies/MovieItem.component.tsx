@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Movie } from '../Movies/MoviesList.component';
+import { Movie } from '../../store/movies/types';
 import css from './Movies.module.css';
-import img from '../../images/movie_temp.png';
 
 
 interface MoviesItemProps {
@@ -9,20 +8,22 @@ interface MoviesItemProps {
 }
 
 const MovieItem: React.FunctionComponent<MoviesItemProps> = (props): JSX.Element => {
+  const genres = props.movie.genres
+    .map((genre, index) => (<span key={index} style={{paddingLeft: '5px'}}>{genre}</span>));
+  
   return (
     <section className={`d-flex ${css.container} ${css.movieItem}`}>
-      <div style={{paddingRight: '50px'}}><img src={img} alt='Movie card'/></div>
+      <div style={{paddingRight: '50px'}}><img src={props.movie.poster_path} alt='Movie card'/></div>
       <div>
         <div className='d-flex'>
           <h1 data-testid='movie-item-name' className='extra-light' style={{paddingRight: '30px'}}>{props.movie.title}</h1>
-          <p>{props.movie.rating}</p>
+          <p>{props.movie.vote_average}</p>
         </div>
-        <p>{props.movie.genre}</p>
+        <p>{genres}</p>
         <div className='d-flex'>
-          <p style={{paddingRight: '30px'}}>{props.movie.year}</p>
-          <p>{props.movie.duration}</p>
+          <p style={{paddingRight: '30px'}}>{props.movie.release_date}</p>
         </div>
-        <p>{props.movie.description}</p>
+        <p>{props.movie.overview}</p>
       </div>     
     </section>
   );

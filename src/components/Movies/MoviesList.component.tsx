@@ -1,16 +1,8 @@
 import * as React from 'react';
 import MovieCard from './MovieCard.component';
 import * as css from './Movies.module.css';
+import { Movie } from '../../store/movies/types';
 
-export interface Movie {
-  id: number;
-  title: string;
-  year: number;
-  genre: string;
-  rating: number;
-  duration: string;
-  description: string;
-}
 
 interface MoviesListProps {
   moviesToShow: Array<Movie>|undefined;

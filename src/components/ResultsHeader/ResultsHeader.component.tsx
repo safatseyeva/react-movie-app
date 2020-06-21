@@ -11,6 +11,7 @@ interface ResultsHeaderProps {
 export const sortSwitcherSettings: SwitcherSettings = {
   type: 'sort by',
   options: ['release date', 'rating'],
+  fields: ['release_date', 'vote_average'],
   activeId: 0
 };
 
@@ -20,7 +21,9 @@ const ResultsHeader: React.FunctionComponent<ResultsHeaderProps> = (props): JSX.
 
   const onSwitherChange = (value: number) => {
     setActiveSwitcherId(value);
-    props.onSort(sortSwitcherSettings.options[value]);
+    if (sortSwitcherSettings.fields) {
+      props.onSort(sortSwitcherSettings.fields[value]);
+    }
   };
 	
   return (
