@@ -1,39 +1,58 @@
 const MoviesListMock = [
   {
-    id: 1,
-    title: 'Green Book',
-    year: 2018,
-    genre: 'Oskar winning movie',
-    rating: 8.8,
-    duration: '156 min',
-    description: 'Some description..'
+    'id': 424785,
+    'title': 'Transformers 7',
+    'tagline': '',
+    'vote_average': 0,
+    'vote_count': 0,
+    'release_date': '2019-06-26',
+    'poster_path': 'https://image.tmdb.org/t/p/w500/432BowXw7a4fWXSONxBaFKqvW4f.jpg',
+    'overview': 'Plot unknown.',
+    'budget': 0,
+    'revenue': 0,
+    'genres': [
+      'Science Fiction',
+      'Action',
+      'Adventure'
+    ],
+    'runtime': null
   },
   {
-    id: 2,
-    title: 'Once Upon a Time in Hollywood',
-    year: 2019,
-    genre: 'Comedy/Drama',
-    rating: 8,
-    duration: '180 min',
-    description: 'Some description..'
+    'id': 299534,
+    'title': 'Untitled Avengers',
+    'tagline': '',
+    'vote_average': 0,
+    'vote_count': 9,
+    'release_date': '2019-04-24',
+    'poster_path': 'https://image.tmdb.org/t/p/w500/aMETsaNNcDc6g5ZatQtVbySnSaA.jpg',
+    'overview': 'The culmination of the Marvel Cinematic Universe.',
+    'budget': 0,
+    'revenue': 0,
+    'genres': [
+      'Action',
+      'Adventure',
+      'Science Fiction'
+    ],
+    'runtime': null
   },
   {
-    id: 3,
-    title: 'Lion',
-    year: 2016,
-    genre: 'Drama',
-    rating: 9.8,
-    duration: '167 min',
-    description: 'Some description..'
-  },
-  {
-    id: 4,
-    title: 'Coco',
-    year: 2017,
-    genre: 'Oskar winning movie',
-    rating: 9.9,
-    duration: '130 min',
-    description: 'Some description..'
+    'id': 287947,
+    'title': 'Shazam!',
+    'tagline': '',
+    'vote_average': 0,
+    'vote_count': 5,
+    'release_date': '2019-04-05',
+    'poster_path': 'https://image.tmdb.org/t/p/w500/yUOJHa9XmB1H0iYodG9Kb3YCc9T.jpg',
+    'overview': 'We all have a superhero inside us, it just takes a bit of magic to bring it out. In Billy Batson\'s case, by shouting out one word--SHAZAM!--this streetwise 14-year-old foster kid can turn into the adult superhero Shazam, courtesy of an ancient wizard.Still a kid at heart--inside a ripped, godlike body--Shazam revels in this adult version of himself by doing what any teen would do with superpowers: have fun with them! Can he fly? Does he have X-ray vision? Can he shoot lightning out of his hands? Can he skip his social studies test? Shazam sets out to test the limits of his abilities with the joyful recklessness of a child. But he\'ll need to master these powers quickly in order to fight the deadly forces of evil controlled by Doctor Thaddeus Sivana.',
+    'budget': 0,
+    'revenue': 0,
+    'genres': [
+      'Action',
+      'Adventure',
+      'Fantasy',
+      'Science Fiction'
+    ],
+    'runtime': null
   }
 ];
   

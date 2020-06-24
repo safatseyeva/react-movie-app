@@ -8,7 +8,7 @@ describe('<Switcher /> component:', () => {
   test('should render with two buttons', () => {
     const switcherSettings: SwitcherSettings = {
       type: 'search by',
-      options: ['title', 'genre'],
+      options: ['title', 'genres'],
       activeId: 0
     };
     const onSwitherChange = jest.fn();
@@ -21,7 +21,7 @@ describe('<Switcher /> component:', () => {
         />
       );
     expect(getAllByRole('button').length).toBe(2);
-    fireEvent.click(getByText('genre'));
+    fireEvent.click(getByText('genres'));
     expect(onSwitherChange).toBeCalledWith(1);
   });
 });

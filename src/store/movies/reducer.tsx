@@ -6,7 +6,8 @@ import {
   MoviesActionTypes
 } from './types';
 
-const initialState: MoviesState = {
+
+export const initialState: MoviesState = {
   list: [],
   activeMovie: undefined,
   loading: false,

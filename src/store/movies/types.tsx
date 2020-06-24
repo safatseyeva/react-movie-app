@@ -3,7 +3,7 @@ import { SearchParams } from '../../components/MoviesPage/MoviesPage.component';
 export interface Movie {
   id: number;
   title: string;
-  release_date: number;
+  release_date: string;
   genres: Array<string>;
   vote_average: number;
   overview: string;

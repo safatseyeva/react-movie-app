@@ -5,9 +5,10 @@ import * as actionTypes from './types';
 import { getMovies, getMovieItem } from '../../services/Movies.service';
 
 
-function* onLoadMovies({searchParams, sortBy, filter}: actionTypes.LoadMoviesAction) {
+export function* onLoadMovies({searchParams, sortBy, filter}: actionTypes.LoadMoviesAction) {
   try {
     const { data } = yield call(getMovies, searchParams, sortBy, filter);
+    console.log(data.data);
     yield put(actionCreators.loadMoviesSuccess(data.data));
 
   } catch (error) {
@@ -26,7 +27,7 @@ function* onLoadMovieItem({id}: actionTypes.LoadMovieItemAction) {
 }
 
 
-function* watchOnLoadMovies() {
+export function* watchOnLoadMovies() {
   yield takeEvery(actionTypes.LOAD_MOVIES_START, onLoadMovies);
 }
 

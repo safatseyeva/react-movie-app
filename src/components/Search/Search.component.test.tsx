@@ -12,7 +12,7 @@ describe('<Search /> component:', () => {
 
     expect(getByTestId('search-form')).toBeDefined();
     expect(getByText('title'));
-    expect(getByText('genre'));
+    expect(getByText('genres'));
   });
 
   test('should handle search corectly with input value and after blur', () => {

@@ -66,7 +66,7 @@ const MovieItemPage: React.FunctionComponent<MovieItemPageProps> = (props): JSX.
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: AppState)  => ({
   list: state.movies.list,
   loading: state.movies.loading,
   error: state.movies.error,

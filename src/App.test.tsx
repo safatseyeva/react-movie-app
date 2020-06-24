@@ -1,26 +1,35 @@
 import * as React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen } from './utils/testUtils';
 import '@testing-library/jest-dom/extend-expect';
 import App from './App';
+import MoviesListMock from './components/Movies/MoviesList.mock';
 
-jest.mock('../../images/movie_temp.png');
 
 describe('<App /> component:', () => {
   test('should render Movies page', () => {
-    const { getAllByTestId, getByText } = 
-      render(
-        <App />
-      );
-    expect(getAllByTestId(/movieId_/).length).toBe(4);
-    getByText('Find your movie');
+    render(<App />, { initialState: {
+      movies: {
+        movies: MoviesListMock,
+        activeMovie: undefined,
+        loading: false,
+        error: '',
+        searchParams: {
+          search: '',
+          searchBy: ''
+        },
+        sortBy: '',
+        filter: []
+      }
+    }});
+    screen.getByText('Find your movie');
   });
 
   test('should render Movies Item page with Lion movie', () => {
-    const { getByTestId} = 
-      render(
-        <App />
-      );
-    fireEvent.click(getByTestId('movieId_3'));
-    expect(getByTestId('movie-item-name')).toHaveTextContent('Lion');
+    render(<App />, { initialState: {
+      movies: {
+        activeMovie: MoviesListMock[2]
+      }
+    }});
+    expect(screen.getByTestId('movie-item-name')).toHaveTextContent('Shazam!');
   });
 });
