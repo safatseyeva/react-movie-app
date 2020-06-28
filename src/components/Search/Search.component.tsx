@@ -12,7 +12,7 @@ interface SearchProps {
 const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => { 
   const switcherSettings: SwitcherSettings = {
     type: 'search by',
-    options: ['title', 'genre'],
+    options: ['title', 'genres'],
     activeId: 0
   };
 
@@ -25,8 +25,8 @@ const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => {
 
   const onSubmitClick = (value: string): void => {
     props.onSearch({
-      searchStr: value,
-      searchType: switcherSettings.options[activeSwitcherId]
+      search: value,
+      searchBy: switcherSettings.options[activeSwitcherId]
     });
   };
 

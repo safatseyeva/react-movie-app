@@ -2,9 +2,10 @@ import * as React from 'react';
 import SwitchOption from './SwitchOption.component';
 
 export interface SwitcherSettings {
-  type: string,
-  options: Array<string>,
-  activeId: number
+  type: string;
+  options: Array<string>;
+  activeId: number;
+  fields?: Array<string>;
 }
 
 interface SwitcherProps {
@@ -27,7 +28,7 @@ class Switcher extends React.PureComponent<SwitcherProps> {
           key={option}
           option={option}
           optionId={index}
-          active={index === this.props.activeSwitcherId ? true : false}
+          active={index === this.props.activeSwitcherId}
           handleSwitcherChange={this.handleSwitcherChange}
         />
       )

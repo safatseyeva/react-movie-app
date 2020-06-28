@@ -1,30 +1,27 @@
-import { sortSwitcherSettings } from '../components/ResultsHeader/ResultsHeader.component';
+import { AxiosResponse } from 'axios';
+import axiosConfig from '../utils/api';
+
 import { SearchParams } from '../components/MoviesPage/MoviesPage.component';
-import { Movie } from '../components/Movies/MoviesList.component';
 
-type GenericObject = { 
-	[key: string]: any;
-};
-  
-export const search = (searchParams: SearchParams, moviesArr: Array<Movie>): Array<Movie> => {
-  return moviesArr.filter((movie: GenericObject) => {
-    const movieValue = searchParams && movie[searchParams.searchType].toLowerCase();
-    return searchParams && movieValue.indexOf(searchParams.searchStr.toLowerCase()) > -1;
-  });
+
+export async function getMovies(searchParams: SearchParams, sortBy: string, filter?: Array<string>): Promise<AxiosResponse> {
+  let url = '/movies?limit=15';
+
+  if (sortBy) {
+    url = url + `&sortBy=${sortBy}`;
+  }
+
+  if (searchParams.search && searchParams.searchBy) {
+    url = url + `&search=${searchParams.search}&searchBy=${searchParams.searchBy}`;
+  }
+
+  if (filter) {
+    url = url + `&filter=${filter}`;
+  }
+ 
+  return await axiosConfig.get(url); 
 }
 
-export const filter = (activeMovieId: number, moviesArr: Array<Movie>): Array<Movie>  => {
-	const genre = moviesArr
-		.find((movie: Movie) => movie.id === activeMovieId)?.genre;
-
-	return moviesArr
-		.filter((movie: Movie) => movie.genre === genre && movie.id !== activeMovieId);
-}
-
-export const sort = (sortBy: string | undefined, moviesArr: Array<Movie>): Array<Movie>  => {
-	const defaultSorting = sortSwitcherSettings.options[sortSwitcherSettings.activeId];
-	const sorting = (!sortBy || sortBy === defaultSorting) ? 
-		'year' : sortBy;
-
-	return moviesArr.sort((a: GenericObject, b: GenericObject) => b[sorting] - a[sorting]);
+export async function getMovieItem(id: number): Promise<AxiosResponse> {
+  return await axiosConfig.get(`/movies/${id}`); 
 }
