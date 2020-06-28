@@ -1,29 +1,42 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { AppState } from './store/rootReducer';
+import {
+  BrowserRouter as Router, Switch, Route
+} from 'react-router-dom';
 
 import Footer from './components/Footer/Footer.component';
 import MoviesPage from './components/MoviesPage/MoviesPage.component';
 import MovieItemPage from './components/MovieItemPage/MovieItemPage.component';
-import { Movie } from './store/movies/types';
 
-interface AppProps {
-  activeMovie: Movie | undefined;
-}
-
-const App: React.FunctionComponent<AppProps> = (props): JSX.Element => {
+const PageNotFound: React.FunctionComponent = (): JSX.Element => {
   return (
-    <div className='main d-flex flex-column'>
-      {props.activeMovie ? 
-        <MovieItemPage movie={props.activeMovie}/> 
-        : <MoviesPage />}
-      <Footer/>
-    </div>
+    <div>Page Not Found</div>
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  activeMovie: state.movies.activeMovie
-});
 
-export default connect(mapStateToProps)(App);
+
+const App: React.FunctionComponent = (): JSX.Element => {
+  return (
+    <Router>
+      <div className='main d-flex flex-column'>
+        <Switch>
+          <Route path="/" exact>
+            <MoviesPage />
+          </Route>
+          <Route path='/search'>
+            <MoviesPage />
+          </Route>
+          <Route path='/movie/:id'>
+            <MovieItemPage /> 
+          </Route>
+          <Route path='*' exact>
+            <PageNotFound /> 
+          </Route>
+        </Switch>
+      </div>
+      <Footer/>
+    </Router>
+  );
+};
+
+export default App;

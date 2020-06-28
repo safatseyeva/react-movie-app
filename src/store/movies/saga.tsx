@@ -17,7 +17,7 @@ export function* onLoadMovies({searchParams, sortBy, filter}: actionTypes.LoadMo
 
 function* onLoadMovieItem({id}: actionTypes.LoadMovieItemAction) {
   try {
-    const { data } = yield call(getMovieItem, id);
+    const { data } = yield call(() => getMovieItem(id));
     yield put(actionCreators.loadMovieItemSuccess(data));
 
   } catch (error) {

@@ -2,7 +2,7 @@ import {
   MoviesState,
   LOAD_MOVIES_START, LOAD_MOVIES_SUCCESS, LOAD_MOVIES_ERROR,
   LOAD_MOVIE_ITEM_START, LOAD_MOVIE_ITEM_SUCCESS, LOAD_MOVIE_ITEM_ERROR,
-  CLEAR_MOVIE_ITEM, UPDATE_SEARCH_PARAMS, UPDATE_SORT_BY,
+  CLEAR_MOVIE_ITEM, UPDATE_SEARCH_PARAMS, UPDATE_SORT_BY, RESET_STORE,
   MoviesActionTypes
 } from './types';
 
@@ -29,9 +29,7 @@ const moviesReducer = (
   case LOAD_MOVIES_START:
     return { 
       ...state,
-      loading: true,
-      searchParams: action.searchParams,
-      sortBy: action.sortBy
+      loading: true
     };
 
   case LOAD_MOVIES_SUCCESS:
@@ -90,6 +88,9 @@ const moviesReducer = (
       ...state,
       sortBy: action.payload
     };
+
+  case RESET_STORE:
+    return initialState;
 
 
   default:

@@ -71,7 +71,7 @@ describe('movies reducer', () => {
     expect(
       reducer(initialState, {
         type: types.LOAD_MOVIE_ITEM_START,
-        id: 12345
+        id: '12345'
       })
     )
       .toEqual({
