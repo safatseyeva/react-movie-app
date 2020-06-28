@@ -6,7 +6,7 @@ import rootReducer from '../store/rootReducer';
 
 
 function render(
-  ui: JSX.Element,
+  ui,
   {
     initialState,
     store = createStore(rootReducer, initialState),

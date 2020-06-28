@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { loadMoviesStart, loadMovieItemStart } from '../../store/movies/actions';
+import { loadMoviesStart, loadMovieItemStart, updateSearchParams, updateSortBy } 
+  from '../../store/movies/actions';
 import { AppState } from '../../store/rootReducer';
 
 import Header from '../Header/Header.component';
@@ -17,8 +18,12 @@ interface MoviesPageProps {
   list: Array<Movie>;
   loading: boolean;
   error?: string;
+  searchParams: SearchParams,
+  sortBy: string;
   getMovies(searchParams: SearchParams, sortBy: string): void;
   getMovieItem(id: number): void;
+  updateSearchParams(searchParams: SearchParams): void;
+  updateSortBy(sortBy: string): void;
 }
 
 export interface SearchParams {
@@ -27,26 +32,18 @@ export interface SearchParams {
 }
   
 const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Element => {
-  const [searchParams, setSearchParams] = useState<SearchParams>({
-    search: '',
-    searchBy: ''
-  });
-  const [sortBy, setSortBy] = sortSwitcherSettings.fields ? 
-    useState(sortSwitcherSettings.fields[sortSwitcherSettings.activeId]) : useState('');
+  useEffect(() => {
+    const sorting = sortSwitcherSettings.fields 
+      && sortSwitcherSettings.fields[sortSwitcherSettings.activeId] || '';
+
+    props.updateSortBy(sorting);
+  }, []);
 
   useEffect(() => {
-    if (sortBy) {
-      props.getMovies(searchParams, sortBy);
+    if (props.sortBy) {
+      props.getMovies(props.searchParams, props.sortBy);
     }
-  }, [searchParams, sortBy]);
-
-  const onSearch = (searchObj: SearchParams): void => {
-    setSearchParams(searchObj);
-  };
-
-  const onSort = (sortType: string): void => {
-    setSortBy(sortType);
-  };
+  }, [props.searchParams, props.sortBy]);
 
   const onMovieClick = (movie: Movie): void => {
     props.getMovieItem(movie.id);
@@ -56,8 +53,8 @@ const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Elemen
     <React.Fragment>
       <Header/>
       <section>
-        <Search onSearch={onSearch} />
-        <ResultsHeader resultsNumber={props.list && props.list.length} onSort={onSort} />
+        <Search onSearch={props.updateSearchParams} />
+        <ResultsHeader resultsNumber={props.list && props.list.length} onSort={props.updateSortBy} />
         {props.loading ? 
           (<div>Loading...</div>) :
           <MoviesList 
@@ -72,12 +69,16 @@ const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Elemen
 const mapStateToProps = (state: AppState) => ({
   list: state.movies.list,
   loading: state.movies.loading,
-  error: state.movies.error 
+  error: state.movies.error,
+  searchParams: state.movies.searchParams,
+  sortBy: state.movies.sortBy
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   getMovies: (searchParams: SearchParams, sortBy: string) => dispatch(loadMoviesStart(searchParams, sortBy)),
-  getMovieItem: (id: number) => dispatch(loadMovieItemStart(id))
+  getMovieItem: (id: number) => dispatch(loadMovieItemStart(id)),
+  updateSearchParams: (searchParams: SearchParams) => dispatch(updateSearchParams(searchParams)),
+  updateSortBy: (sortBy: string) => dispatch(updateSortBy(sortBy))
 });
 
 export default connect(

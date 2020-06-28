@@ -2,7 +2,7 @@ import {
   MoviesState,
   LOAD_MOVIES_START, LOAD_MOVIES_SUCCESS, LOAD_MOVIES_ERROR,
   LOAD_MOVIE_ITEM_START, LOAD_MOVIE_ITEM_SUCCESS, LOAD_MOVIE_ITEM_ERROR,
-  CLEAR_MOVIE_ITEM,
+  CLEAR_MOVIE_ITEM, UPDATE_SEARCH_PARAMS, UPDATE_SORT_BY,
   MoviesActionTypes
 } from './types';
 
@@ -30,7 +30,7 @@ const moviesReducer = (
     return { 
       ...state,
       loading: true,
-      searchParams: { ...action.searchParams },
+      searchParams: action.searchParams,
       sortBy: action.sortBy
     };
 
@@ -77,6 +77,18 @@ const moviesReducer = (
       ...state,
       activeMovie: undefined,
       filter: []
+    };
+
+  case UPDATE_SEARCH_PARAMS:
+    return { 
+      ...state,
+      searchParams: action.payload
+    };
+
+  case UPDATE_SORT_BY:
+    return { 
+      ...state,
+      sortBy: action.payload
     };
 
 

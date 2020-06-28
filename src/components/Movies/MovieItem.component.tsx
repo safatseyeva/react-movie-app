@@ -9,7 +9,7 @@ interface MoviesItemProps {
 
 const MovieItem: React.FunctionComponent<MoviesItemProps> = (props): JSX.Element => {
   const genres = props.movie.genres
-    .map((genre, index) => (<span key={index} style={{paddingLeft: '5px'}}>{genre}</span>));
+    .map((genre) => (<span key={genre} style={{paddingLeft: '5px'}}>{genre}</span>));
   
   return (
     <section className={`d-flex ${css.container} ${css.movieItem}`}>

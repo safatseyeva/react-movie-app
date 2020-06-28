@@ -52,3 +52,17 @@ export const clearMovieItem = () => {
     type: actions.CLEAR_MOVIE_ITEM
   };
 };
+
+export const updateSearchParams = (searchParams: SearchParams) => {
+  return {
+    type: actions.UPDATE_SEARCH_PARAMS,
+    payload: searchParams
+  };
+};
+
+export const updateSortBy = (sortBy: string) => {
+  return {
+    type: actions.UPDATE_SORT_BY,
+    payload: sortBy
+  };
+};

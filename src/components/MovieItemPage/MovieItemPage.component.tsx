@@ -27,7 +27,7 @@ export interface MovieItemPageProps {
 const MovieItemPage: React.FunctionComponent<MovieItemPageProps> = (props): JSX.Element => {
   useEffect(() => {
     props.getMovies({search: '', searchBy: ''}, '', props.movie.genres);
-  }, []);
+  }, [props.movie.id]);
 
   const onMovieClick = (clickedItem: Movie): void => {
     props.getMovieItem(clickedItem.id);
