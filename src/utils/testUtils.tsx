@@ -6,8 +6,9 @@ import rootReducer from '../store/rootReducer';
 
 
 function render(
-  ui,
+  ui: JSX.Element,
   {
+    //@ts-ignore
     initialState,
     store = createStore(rootReducer, initialState),
     ...renderOptions
@@ -18,6 +19,7 @@ function render(
     return <Provider store={store}>{children}</Provider>;
   }
 
+  //@ts-ignore
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 

@@ -25,10 +25,10 @@ describe('movies reducer', () => {
       reducer(initialState, {
         type: types.LOAD_MOVIES_START,
         searchParams: {
-          search: 'Action',
-          searchBy: 'genres'
+          search: '',
+          searchBy: ''
         },
-        sortBy: 'release_date',
+        sortBy: '',
         filter: []
       })
     )
@@ -38,10 +38,10 @@ describe('movies reducer', () => {
         loading: true,
         error: '',
         searchParams: {
-          search: 'Action',
-          searchBy: 'genres'
+          search: '',
+          searchBy: ''
         },
-        sortBy: 'release_date',
+        sortBy: '',
         filter: []
       });
   });

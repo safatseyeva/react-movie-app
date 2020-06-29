@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { render, screen } from '../../utils/testUtils';
+import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 
 import MovieItemPage from './MovieItemPage.component';
@@ -15,7 +16,11 @@ describe('<MovieItemPage /> component:', () => {
       }
     };
 
-    render(<MovieItemPage movie={MoviesListMock[0]} />, { initialState: state });
+    render(
+      <MemoryRouter initialEntries={['/movie/1']}>
+        <MovieItemPage />
+      </MemoryRouter>, { initialState: state }
+    );
     
     screen.getByText('No Films Found');
     screen.getByText('Back to search');
@@ -37,7 +42,11 @@ describe('<MovieItemPage /> component:', () => {
       }
     };
     
-    render(<MovieItemPage movie={MoviesListMock[0]}/>, { initialState: state });
+    render(
+      <MemoryRouter initialEntries={['/movie/1']}>
+        <MovieItemPage />
+      </MemoryRouter>, { initialState: state }
+    );
     
     const moviesArr = screen.getAllByTestId(/movieId_/);
     expect(moviesArr.length).toBe(3);
