@@ -53,20 +53,6 @@ export const clearMovieItem = () => {
   };
 };
 
-export const updateSearchParams = (searchParams: SearchParams) => {
-  return {
-    type: actions.UPDATE_SEARCH_PARAMS,
-    payload: searchParams
-  };
-};
-
-export const updateSortBy = (sortBy: string) => {
-  return {
-    type: actions.UPDATE_SORT_BY,
-    payload: sortBy
-  };
-};
-
 export const resetStore = () => {
   return {
     type: actions.RESET_STORE

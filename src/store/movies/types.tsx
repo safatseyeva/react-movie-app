@@ -15,8 +15,6 @@ export interface MoviesState {
   activeMovie: Movie|undefined;
   loading: boolean;
   error?: string;
-  searchParams: SearchParams;
-  sortBy: string;
   filter: Array<string>;
 }
 
@@ -27,8 +25,6 @@ export const LOAD_MOVIE_ITEM_START = 'LOAD_MOVIE_ITEM_START';
 export const LOAD_MOVIE_ITEM_SUCCESS = 'LOAD_MOVIE_ITEM_SUCCESS';
 export const LOAD_MOVIE_ITEM_ERROR = 'LOAD_MOVIE_ITEM_ERROR';
 export const CLEAR_MOVIE_ITEM = 'CLEAR_MOVIE_ITEM';
-export const UPDATE_SEARCH_PARAMS = 'UPDATE_SEARCH_PARAMS';
-export const UPDATE_SORT_BY = 'UPDATE_SORT_BY';
 export const RESET_STORE = 'RESET_STORE';
 
 
@@ -68,16 +64,6 @@ export interface ClearMovieItemAction {
   type: typeof CLEAR_MOVIE_ITEM;
 }
 
-export interface UpdateSearchParamsAction {
-  type: typeof UPDATE_SEARCH_PARAMS;
-  payload: SearchParams;
-}
-
-export interface UpdateSortByAction {
-  type: typeof UPDATE_SORT_BY;
-  payload: string;
-}
-
 export interface ResetStoreAction {
   type: typeof RESET_STORE;
 }
@@ -90,6 +76,4 @@ export type MoviesActionTypes =
   | LoadMovieItemSuccessAction
   | LoadMovieItemErrorAction
   | ClearMovieItemAction
-  | UpdateSearchParamsAction
-  | UpdateSortByAction
   | ResetStoreAction;

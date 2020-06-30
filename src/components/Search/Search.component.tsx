@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Switcher, { SwitcherSettings } from '../Switcher/Switcher.component';
 import SearchForm from './SearchForm.component';
 import * as css from './Search.module.css';
@@ -10,6 +12,8 @@ interface SearchProps {
 }
 
 const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => { 
+  const location = useLocation();
+
   const switcherSettings: SwitcherSettings = {
     type: 'search by',
     options: ['title', 'genres'],
@@ -18,6 +22,19 @@ const Search: React.FunctionComponent<SearchProps> = (props): JSX.Element => {
 
   const [activeSwitcherId, setActiveSwitcherId] = 
     useState(switcherSettings.activeId);
+
+  useEffect(() => {
+    if (location.pathname === '/search') {
+      const query = new URLSearchParams(location.search);
+      const searchBy = query.get('searchBy') || '';
+
+      if (searchBy) {
+        const index = switcherSettings.options.indexOf(searchBy);
+        setActiveSwitcherId(index);
+      }
+    }
+  
+  }, []);
 
   const onSwitherChange = (value: number) => {
     setActiveSwitcherId(value);

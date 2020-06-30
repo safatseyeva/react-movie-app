@@ -20,7 +20,7 @@ const App: React.FunctionComponent = (): JSX.Element => {
     <Router>
       <div className='main d-flex flex-column'>
         <Switch>
-          <Route path="/" exact>
+          <Route path='/' exact>
             <MoviesPage />
           </Route>
           <Route path='/search'>

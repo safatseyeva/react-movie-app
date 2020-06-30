@@ -25,7 +25,6 @@ export interface MovieItemPageProps {
   error?: string;
   filter?: Array<string>;
   activeMovie?: Movie;
-  searchParams: SearchParams;
   getMovies(searchParams: SearchParams, sortBy: string, filter: Array<string>): void;
   getMovieItem(id: number|string): void;
   clearMovieItem(): void;
@@ -55,9 +54,7 @@ const MovieItemPage: React.FunctionComponent<MovieItemPageProps> = (props): JSX.
 
   const onBackToSearchClick = (): void => {
     props.clearMovieItem();
-    const url = (props.searchParams.search && props.searchParams.searchBy) ? 
-      `/search?searchStr=${props.searchParams.search}&searchBy=${props.searchParams.searchBy}` : '/';
-    history.push(url);
+    history.goBack();
   };
 
   const genres = props.activeMovie?.genres
@@ -91,8 +88,7 @@ const mapStateToProps = (state: AppState)  => ({
   loading: state.movies.loading,
   error: state.movies.error,
   filter: state.movies.filter,
-  activeMovie: state.movies.activeMovie,
-  searchParams: state.movies.searchParams
+  activeMovie: state.movies.activeMovie
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
