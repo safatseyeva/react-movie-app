@@ -59,7 +59,7 @@ const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Elemen
     return {
       search: query.get('searchStr') || '',
       searchBy: query.get('searchBy') || ''
-    }
+    };
   };
 
   const changeUrl = (searchParams: SearchParams, sortBy: string) => {

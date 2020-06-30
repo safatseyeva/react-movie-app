@@ -7,11 +7,6 @@ const initialState = {
   activeMovie: undefined,
   loading: false,
   error: '',
-  searchParams: {
-    search: '',
-    searchBy: ''
-  },
-  sortBy: '',
   filter: []
 };
 
@@ -37,11 +32,6 @@ describe('movies reducer', () => {
         activeMovie: undefined,
         loading: true,
         error: '',
-        searchParams: {
-          search: '',
-          searchBy: ''
-        },
-        sortBy: '',
         filter: []
       });
   });
@@ -58,11 +48,6 @@ describe('movies reducer', () => {
         activeMovie: undefined,
         loading: false,
         error: '',
-        searchParams: {
-          search: '',
-          searchBy: ''
-        },
-        sortBy: '',
         filter: []
       });
   });
@@ -79,11 +64,6 @@ describe('movies reducer', () => {
         activeMovie: undefined,
         loading: true,
         error: '',
-        searchParams: {
-          search: '',
-          searchBy: ''
-        },
-        sortBy: '',
         filter: []
       });
   });
@@ -100,11 +80,6 @@ describe('movies reducer', () => {
         activeMovie: MoviesListMock[0],
         loading: false,
         error: '',
-        searchParams: {
-          search: '',
-          searchBy: ''
-        },
-        sortBy: '',
         filter: ['Science Fiction', 'Action','Adventure']
       });
   });
