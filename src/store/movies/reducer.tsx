@@ -2,7 +2,7 @@ import {
   MoviesState,
   LOAD_MOVIES_START, LOAD_MOVIES_SUCCESS, LOAD_MOVIES_ERROR,
   LOAD_MOVIE_ITEM_START, LOAD_MOVIE_ITEM_SUCCESS, LOAD_MOVIE_ITEM_ERROR,
-  CLEAR_MOVIE_ITEM,
+  CLEAR_MOVIE_ITEM, RESET_STORE,
   MoviesActionTypes
 } from './types';
 
@@ -12,11 +12,6 @@ export const initialState: MoviesState = {
   activeMovie: undefined,
   loading: false,
   error: '',
-  searchParams: {
-    search: '',
-    searchBy: ''
-  },
-  sortBy: '',
   filter: []
 };
   
@@ -29,9 +24,7 @@ const moviesReducer = (
   case LOAD_MOVIES_START:
     return { 
       ...state,
-      loading: true,
-      searchParams: { ...action.searchParams },
-      sortBy: action.sortBy
+      loading: true
     };
 
   case LOAD_MOVIES_SUCCESS:
@@ -78,6 +71,9 @@ const moviesReducer = (
       activeMovie: undefined,
       filter: []
     };
+
+  case RESET_STORE:
+    return initialState;
 
 
   default:

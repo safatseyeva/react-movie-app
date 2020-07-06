@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Switcher, { SwitcherSettings } from '../Switcher/Switcher.component';
 import * as css from './ResultsHeader.module.css';
 
@@ -16,8 +18,23 @@ export const sortSwitcherSettings: SwitcherSettings = {
 };
 
 const ResultsHeader: React.FunctionComponent<ResultsHeaderProps> = (props): JSX.Element => {
+  const location = useLocation();
+
   const [activeSwitcherId, setActiveSwitcherId] = 
     useState(sortSwitcherSettings.activeId);
+
+  useEffect(() => {
+    if (location.pathname === '/search') {
+      const query = new URLSearchParams(location.search);
+      const sortBy = query.get('sortBy') || '';
+
+      if (sortBy) {
+        const index = sortSwitcherSettings.fields?.indexOf(sortBy) || sortSwitcherSettings.activeId;
+        setActiveSwitcherId(index);
+      }
+    }
+  
+  }, []);
 
   const onSwitherChange = (value: number) => {
     setActiveSwitcherId(value);
@@ -25,7 +42,8 @@ const ResultsHeader: React.FunctionComponent<ResultsHeaderProps> = (props): JSX.
       props.onSort(sortSwitcherSettings.fields[value]);
     }
   };
-	
+  
+  
   return (
     <div className={`d-flex aline-items-center ${css.resultsHeader}`}>
       <div className={`bold ${css.resultsHeaderItem}`} data-cy='results-number'>{props.resultsNumber} movie(s) found</div>

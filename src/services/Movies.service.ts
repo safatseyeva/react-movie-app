@@ -16,12 +16,13 @@ export async function getMovies(searchParams: SearchParams, sortBy: string, filt
   }
 
   if (filter) {
-    url = url + `&filter=${filter}`;
+    const arrStr = encodeURIComponent(JSON.stringify(filter));
+    url = url + `&filter=${arrStr}`;
   }
  
   return await axiosConfig.get(url); 
 }
 
-export async function getMovieItem(id: number): Promise<AxiosResponse> {
+export async function getMovieItem(id: number|string): Promise<AxiosResponse> {
   return await axiosConfig.get(`/movies/${id}`); 
 }

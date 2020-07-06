@@ -8,7 +8,8 @@ module.exports = merge(webpackCommonConfig, {
   devtool: 'inline-source-map',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+    publicPath: '/'
   }, 
   devServer: {
     contentBase: path.join(__dirname, 'dist'),

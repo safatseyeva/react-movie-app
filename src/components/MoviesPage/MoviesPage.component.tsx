@@ -1,8 +1,13 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+
 import { connect } from 'react-redux';
-import { loadMoviesStart, loadMovieItemStart } from '../../store/movies/actions';
+import { loadMoviesStart, resetStore } 
+  from '../../store/movies/actions';
 import { AppState } from '../../store/rootReducer';
+
+import { useLocation, useHistory } from 'react-router-dom';
+import { generatePath } from 'react-router';
 
 import Header from '../Header/Header.component';
 import Search from '../Search/Search.component';
@@ -18,7 +23,7 @@ interface MoviesPageProps {
   loading: boolean;
   error?: string;
   getMovies(searchParams: SearchParams, sortBy: string): void;
-  getMovieItem(id: number): void;
+  resetStore(): void;
 }
 
 export interface SearchParams {
@@ -27,30 +32,60 @@ export interface SearchParams {
 }
   
 const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Element => {
-  const [searchParams, setSearchParams] = useState<SearchParams>({
-    search: '',
-    searchBy: ''
-  });
-  const [sortBy, setSortBy] = sortSwitcherSettings.fields ? 
-    useState(sortSwitcherSettings.fields[sortSwitcherSettings.activeId]) : useState('');
-
+  const history = useHistory();
+  const location = useLocation();
+  
   useEffect(() => {
-    if (sortBy) {
-      props.getMovies(searchParams, sortBy);
-    }
-  }, [searchParams, sortBy]);
+    if (location.pathname === '/') {
+      props.resetStore();
 
-  const onSearch = (searchObj: SearchParams): void => {
-    setSearchParams(searchObj);
+    } else {
+      const query = new URLSearchParams(location.search);
+      const searchParams = getSearchParams(query);
+      const sortBy = query.get('sortBy') || '';
+
+      if (!searchParams.search) {
+        props.resetStore();
+        return;
+      }
+
+      props.getMovies(searchParams, sortBy);  
+    }
+
+  }, [location]);
+
+
+  const getSearchParams = (query: URLSearchParams) => {
+    return {
+      search: query.get('searchStr') || '',
+      searchBy: query.get('searchBy') || ''
+    };
   };
 
-  const onSort = (sortType: string): void => {
-    setSortBy(sortType);
+  const changeUrl = (searchParams: SearchParams, sortBy: string) => {
+    const url = searchParams.search ? 
+      `/search?searchStr=${searchParams.search}&searchBy=${searchParams.searchBy}&sortBy=${sortBy}`
+      : `/search?sortBy=${sortBy}`;
+    history.push(url);
+  };
+
+  const onSearch = (searchParams: SearchParams) => {
+    const query = new URLSearchParams(location.search);
+    const sortBy = query.get('sortBy') || sortSwitcherSettings.fields 
+      && sortSwitcherSettings.fields[sortSwitcherSettings.activeId] || '';
+    changeUrl(searchParams, sortBy);
+  };
+
+  const onSort = (sortBy: string) => {
+    const query = new URLSearchParams(location.search);
+    const searchParams = getSearchParams(query);
+    changeUrl(searchParams, sortBy);
   };
 
   const onMovieClick = (movie: Movie): void => {
-    props.getMovieItem(movie.id);
+    history.push(generatePath('/movie/:id/', { id: movie.id}));
   };
+
 
   return (
     <React.Fragment>
@@ -72,12 +107,12 @@ const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Elemen
 const mapStateToProps = (state: AppState) => ({
   list: state.movies.list,
   loading: state.movies.loading,
-  error: state.movies.error 
+  error: state.movies.error
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   getMovies: (searchParams: SearchParams, sortBy: string) => dispatch(loadMoviesStart(searchParams, sortBy)),
-  getMovieItem: (id: number) => dispatch(loadMovieItemStart(id))
+  resetStore: () => dispatch(resetStore())
 });
 
 export default connect(

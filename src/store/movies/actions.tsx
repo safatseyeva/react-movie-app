@@ -26,17 +26,17 @@ export const loadMoviesError = (error: string) => {
   };
 };
 
-export const loadMovieItemStart = (id: number) => {
+export const loadMovieItemStart = (id: number|string) => {
   return {
     type: actions.LOAD_MOVIE_ITEM_START,
     id
   };
 };
 
-export const loadMovieItemSuccess = (movie: Movie) => {
+export const loadMovieItemSuccess = (activeMovie: Movie) => {
   return {
     type: actions.LOAD_MOVIE_ITEM_SUCCESS,
-    payload: movie
+    payload: activeMovie
   };
 };
 
@@ -50,5 +50,11 @@ export const loadMovieItemError = (error: string) => {
 export const clearMovieItem = () => {
   return {
     type: actions.CLEAR_MOVIE_ITEM
+  };
+};
+
+export const resetStore = () => {
+  return {
+    type: actions.RESET_STORE
   };
 };

@@ -27,6 +27,7 @@
     "comma-dangle": ["error", "never"],
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
-    "react/prop-types": 0
+    "react/prop-types": 0,
+    "@typescript-eslint/ban-ts-comment": 0
   }
 }

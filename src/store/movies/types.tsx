@@ -1,7 +1,7 @@
 import { SearchParams } from '../../components/MoviesPage/MoviesPage.component';
 
 export interface Movie {
-  id: number;
+  id: number|string;
   title: string;
   release_date: string;
   genres: Array<string>;
@@ -15,8 +15,6 @@ export interface MoviesState {
   activeMovie: Movie|undefined;
   loading: boolean;
   error?: string;
-  searchParams: SearchParams;
-  sortBy: string;
   filter: Array<string>;
 }
 
@@ -27,13 +25,14 @@ export const LOAD_MOVIE_ITEM_START = 'LOAD_MOVIE_ITEM_START';
 export const LOAD_MOVIE_ITEM_SUCCESS = 'LOAD_MOVIE_ITEM_SUCCESS';
 export const LOAD_MOVIE_ITEM_ERROR = 'LOAD_MOVIE_ITEM_ERROR';
 export const CLEAR_MOVIE_ITEM = 'CLEAR_MOVIE_ITEM';
+export const RESET_STORE = 'RESET_STORE';
 
 
 export interface LoadMoviesAction {
   type: typeof LOAD_MOVIES_START;
   searchParams: SearchParams;
   sortBy: string;
-  filter: Array<string>
+  filter: Array<string>;
 }
 
 export interface LoadMoviesSuccessAction {
@@ -48,7 +47,7 @@ export interface LoadMoviesErrorAction {
 
 export interface LoadMovieItemAction {
   type: typeof LOAD_MOVIE_ITEM_START,
-  id: number;
+  id: number|string;
 }
 
 export interface LoadMovieItemSuccessAction {
@@ -65,6 +64,10 @@ export interface ClearMovieItemAction {
   type: typeof CLEAR_MOVIE_ITEM;
 }
 
+export interface ResetStoreAction {
+  type: typeof RESET_STORE;
+}
+
 export type MoviesActionTypes = 
   LoadMoviesAction 
   | LoadMoviesSuccessAction 
@@ -72,4 +75,5 @@ export type MoviesActionTypes =
   | LoadMovieItemAction
   | LoadMovieItemSuccessAction
   | LoadMovieItemErrorAction
-  | ClearMovieItemAction;
+  | ClearMovieItemAction
+  | ResetStoreAction;

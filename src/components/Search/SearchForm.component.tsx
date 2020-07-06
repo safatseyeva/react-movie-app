@@ -14,7 +14,7 @@ class SearchForm extends React.Component<SearchFormProps> {
   }
 
   handleSubmit = (event: React.SyntheticEvent<EventTarget>): void => {
-    if (this.input.current && this.input.current.value !== '') {
+    if (this.input.current) {
       this.props.onSubmitClick(this.input.current.value);
     }
     event.preventDefault();
