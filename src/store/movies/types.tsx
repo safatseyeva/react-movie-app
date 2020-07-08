@@ -12,7 +12,7 @@ export interface Movie {
 
 export interface MoviesState {
   list: Array<Movie>;
-  activeMovie: Movie|undefined;
+  activeMovie: Movie|null;
   loading: boolean;
   error?: string;
   filter: Array<string>;

@@ -9,7 +9,7 @@ import {
 
 export const initialState: MoviesState = {
   list: [],
-  activeMovie: undefined,
+  activeMovie: null,
   loading: false,
   error: '',
   filter: []
@@ -59,7 +59,7 @@ const moviesReducer = (
   case LOAD_MOVIE_ITEM_ERROR:
     return {
       ...state,
-      activeMovie: undefined,
+      activeMovie: null,
       filter: [],
       error: action.payload,
       loading: false
@@ -68,7 +68,7 @@ const moviesReducer = (
   case CLEAR_MOVIE_ITEM:
     return {
       ...state,
-      activeMovie: undefined,
+      activeMovie: null,
       filter: []
     };
 

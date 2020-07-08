@@ -1,29 +1,34 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 
+import { useRouter } from 'next/router';
+import { GetServerSideProps } from 'next';
+
 import { connect } from 'react-redux';
 import { loadMoviesStart, resetStore } 
   from '../../store/movies/actions';
 import { AppState } from '../../store/rootReducer';
 
 import { useLocation, useHistory } from 'react-router-dom';
+import { defaultState } from '../_app';
+import { getStore, makeStore } from '../../store/';
 import { generatePath } from 'react-router';
 
-import Header from '../Header/Header.component';
-import Search from '../Search/Search.component';
-import ResultsHeader from '../ResultsHeader/ResultsHeader.component';
-import MoviesList from '../Movies/MoviesList.component';
+import Header from '../../components/Header/Header.component';
+import Search from '../../components/Search/Search.component';
+import ResultsHeader from '../../components/ResultsHeader/ResultsHeader.component';
+import MoviesList from '../../components/Movies/MoviesList.component';
 
 import { Movie } from '../../store/movies/types';
-import { sortSwitcherSettings } from '../ResultsHeader/ResultsHeader.component';
+import { sortSwitcherSettings } from '../../components/ResultsHeader/ResultsHeader.component';
 
 
 interface MoviesPageProps {
   list: Array<Movie>;
   loading: boolean;
   error?: string;
-  getMovies(searchParams: SearchParams, sortBy: string): void;
-  resetStore(): void;
+  // getMovies(searchParams: SearchParams, sortBy: string): void;
+  // resetStore(): void;
 }
 
 export interface SearchParams {
@@ -32,58 +37,66 @@ export interface SearchParams {
 }
   
 const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Element => {
-  const history = useHistory();
-  const location = useLocation();
+  const router = useRouter();
   
-  useEffect(() => {
-    if (location.pathname === '/') {
-      props.resetStore();
+ // useEffect(() => {
+  //   const { searchStr, searchBy, sortBy } = router.query;
+  //   // console.log(searchStr);
 
-    } else {
-      const query = new URLSearchParams(location.search);
-      const searchParams = getSearchParams(query);
-      const sortBy = query.get('sortBy') || '';
+  //   if (!searchStr) {
+  //     //router.push('/', undefined, { shallow: true });
+  //     props.resetStore();
+  //   }
 
-      if (!searchParams.search) {
-        props.resetStore();
-        return;
-      }
+  //   if (router.pathname === '/') {
+  //     props.resetStore();
 
-      props.getMovies(searchParams, sortBy);  
-    }
+  //   } else {
+  //     // const query = new URLSearchParams(location.search);
+  //     // const searchParams = getSearchParams(query);
+  //     // const sortBy = query.get('sortBy') || '';
 
-  }, [location]);
+  //     if (!searchStr) {
+  //       props.resetStore();
+  //       return;
+  //     }
 
+  //     const searchParams = {
+  //       search: searchStr, 
+  //       searchBy: searchBy
+  //     };
 
-  const getSearchParams = (query: URLSearchParams) => {
-    return {
-      search: query.get('searchStr') || '',
-      searchBy: query.get('searchBy') || ''
-    };
-  };
+  //     //@ts-ignore
+  //     //props.getMovies(searchParams, sortBy);  
+  //   }
+
+  // }, [router]);
+
 
   const changeUrl = (searchParams: SearchParams, sortBy: string) => {
     const url = searchParams.search ? 
       `/search?searchStr=${searchParams.search}&searchBy=${searchParams.searchBy}&sortBy=${sortBy}`
       : `/search?sortBy=${sortBy}`;
-    history.push(url);
+    router.push(url);
   };
 
   const onSearch = (searchParams: SearchParams) => {
-    const query = new URLSearchParams(location.search);
-    const sortBy = query.get('sortBy') || sortSwitcherSettings.fields 
+    const sortBy = router.query.sortBy?.toString();
+    const sorting = sortBy || sortSwitcherSettings.fields 
       && sortSwitcherSettings.fields[sortSwitcherSettings.activeId] || '';
-    changeUrl(searchParams, sortBy);
+    changeUrl(searchParams, sorting);
   };
 
   const onSort = (sortBy: string) => {
-    const query = new URLSearchParams(location.search);
-    const searchParams = getSearchParams(query);
+    const searchParams = {
+      search: router.query.searchStr?.toString() || '',
+      searchBy: router.query.searchBy?.toString() || ''
+    }
     changeUrl(searchParams, sortBy);
   };
 
   const onMovieClick = (movie: Movie): void => {
-    history.push(generatePath('/movie/:id/', { id: movie.id}));
+    router.push(generatePath('/movie/:id/', { id: movie.id}));
   };
 
 
@@ -110,13 +123,12 @@ const mapStateToProps = (state: AppState) => ({
   error: state.movies.error
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getMovies: (searchParams: SearchParams, sortBy: string) => dispatch(loadMoviesStart(searchParams, sortBy)),
-  resetStore: () => dispatch(resetStore())
-});
+// const mapDispatchToProps = (dispatch: any) => ({
+//   getMovies: (searchParams: SearchParams, sortBy: string) => dispatch(loadMoviesStart(searchParams, sortBy)),
+//   resetStore: () => dispatch(resetStore())
+// });
 
 export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
+  mapStateToProps
 )(MoviesPage);
   

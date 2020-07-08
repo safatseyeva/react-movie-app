@@ -1,12 +1,14 @@
 {
   "presets": [
     [
-      "@babel/preset-env",
+      "next/babel",
       {
-        "modules": false
+        "@babel/preset-env": {},
+        "@babel/preset-react": {},
+        "styled-jsx": {},
+        "class-properties": {},
+        "jest": {}
       }
-    ],
-    "@babel/preset-react",
-    "jest"
+    ]
   ]
 }

@@ -7,10 +7,10 @@ import { AppState } from '../../store/rootReducer';
 
 import { useHistory, useParams } from 'react-router-dom';
 
-import Header from '../Header/Header.component';
-import MovieItem from '../Movies/MovieItem.component';
-import MoviesList from '../Movies/MoviesList.component';
-import { SearchParams } from '../MoviesPage/MoviesPage.component';
+import Header from '../../components/Header/Header.component';
+import MovieItem from '../../components/Movies/MovieItem.component';
+import MoviesList from '../../components/Movies/MoviesList.component';
+import { SearchParams } from '../../components/MoviesPage/MoviesPage.component';
 import { Movie } from '../../store/movies/types';
 import css from './MovieItemPage.module.css';
 
@@ -24,7 +24,7 @@ export interface MovieItemPageProps {
   loading?: boolean;
   error?: string;
   filter?: Array<string>;
-  activeMovie?: Movie;
+  activeMovie?: Movie|null;
   getMovies(searchParams: SearchParams, sortBy: string, filter: Array<string>): void;
   getMovieItem(id: number|string): void;
   clearMovieItem(): void;
