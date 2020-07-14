@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { loadMoviesStart, resetStore } 
   from '../../store/movies/actions';
 import { AppState } from '../../store/rootReducer';
+import { getMoviesList, getMoviesLoading } from '../../store/movies/reducer';
 
 import { useLocation, useHistory } from 'react-router-dom';
 import { generatePath } from 'react-router';
@@ -21,7 +22,6 @@ import { sortSwitcherSettings } from '../ResultsHeader/ResultsHeader.component';
 interface MoviesPageProps {
   list: Array<Movie>;
   loading: boolean;
-  error?: string;
   getMovies(searchParams: SearchParams, sortBy: string): void;
   resetStore(): void;
 }
@@ -105,9 +105,8 @@ const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Elemen
 };
 
 const mapStateToProps = (state: AppState) => ({
-  list: state.movies.list,
-  loading: state.movies.loading,
-  error: state.movies.error
+  list: getMoviesList(state.movies),
+  loading: getMoviesLoading(state.movies)
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
