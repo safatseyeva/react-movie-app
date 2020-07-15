@@ -1,6 +1,31 @@
 import * as React from 'react';
+import { createUseStyles } from 'react-jss';
+
 import { Movie } from '../../store/movies/types';
-import css from './Movies.module.css';
+//import css from './Movies.module.css';
+
+
+const useStyles = createUseStyles({
+  container: {
+    margin: '60px'
+  },
+  movieCard: {
+    flexGrow: 1,
+    marginTop: '20px',
+    maxWidth: '320px',
+    '& img': {
+      maxWidth: '320px'
+    }
+  },
+  movieItem: {
+    margin: '0px 60px 25px',
+    padding: '20px 60px 30px',
+    background: '#555',
+    '& img': {
+      maxWidth: '280px'
+    }
+  }
+});
 
 
 interface MovieItemProps {
@@ -8,6 +33,7 @@ interface MovieItemProps {
 }
 
 const MovieItem: React.FunctionComponent<MovieItemProps> = (props): JSX.Element => {
+  const css = useStyles();
   const genres = props.activeMovie.genres
     .map((genre) => (<span key={genre} style={{paddingLeft: '5px'}}>{genre}</span>));
   

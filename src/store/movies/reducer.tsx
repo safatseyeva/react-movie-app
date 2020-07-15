@@ -64,7 +64,7 @@ const moviesReducer = (
     return state
       //@ts-ignore
       .set('activeMovie', undefined)
-      .set('filter', fromJS([]))
+      .set('filter', fromJS([]));
 
   case RESET_STORE:
     return initialState;
