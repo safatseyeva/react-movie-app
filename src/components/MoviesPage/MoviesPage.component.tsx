@@ -1,29 +1,20 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 
-import { connect } from 'react-redux';
-import { loadMoviesStart, resetStore } 
-  from '../../store/movies/actions';
-import { AppState } from '../../store/rootReducer';
+import { useRouter } from 'next/router';
 
-import { useLocation, useHistory } from 'react-router-dom';
-import { generatePath } from 'react-router';
-
-import Header from '../Header/Header.component';
-import Search from '../Search/Search.component';
-import ResultsHeader from '../ResultsHeader/ResultsHeader.component';
-import MoviesList from '../Movies/MoviesList.component';
+import Header from '../../components/Header/Header.component';
+import Search from '../../components/Search/Search.component';
+import ResultsHeader from '../../components/ResultsHeader/ResultsHeader.component';
+import MoviesList from '../../components/Movies/MoviesList.component';
 
 import { Movie } from '../../store/movies/types';
-import { sortSwitcherSettings } from '../ResultsHeader/ResultsHeader.component';
+import { sortSwitcherSettings } from '../../components/ResultsHeader/ResultsHeader.component';
 
 
 interface MoviesPageProps {
   list: Array<Movie>;
   loading: boolean;
   error?: string;
-  getMovies(searchParams: SearchParams, sortBy: string): void;
-  resetStore(): void;
 }
 
 export interface SearchParams {
@@ -32,58 +23,32 @@ export interface SearchParams {
 }
   
 const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Element => {
-  const history = useHistory();
-  const location = useLocation();
-  
-  useEffect(() => {
-    if (location.pathname === '/') {
-      props.resetStore();
-
-    } else {
-      const query = new URLSearchParams(location.search);
-      const searchParams = getSearchParams(query);
-      const sortBy = query.get('sortBy') || '';
-
-      if (!searchParams.search) {
-        props.resetStore();
-        return;
-      }
-
-      props.getMovies(searchParams, sortBy);  
-    }
-
-  }, [location]);
-
-
-  const getSearchParams = (query: URLSearchParams) => {
-    return {
-      search: query.get('searchStr') || '',
-      searchBy: query.get('searchBy') || ''
-    };
-  };
+  const router = useRouter();
 
   const changeUrl = (searchParams: SearchParams, sortBy: string) => {
     const url = searchParams.search ? 
       `/search?searchStr=${searchParams.search}&searchBy=${searchParams.searchBy}&sortBy=${sortBy}`
       : `/search?sortBy=${sortBy}`;
-    history.push(url);
+    router.push(url);
   };
 
   const onSearch = (searchParams: SearchParams) => {
-    const query = new URLSearchParams(location.search);
-    const sortBy = query.get('sortBy') || sortSwitcherSettings.fields 
+    const sortBy = router.query.sortBy?.toString();
+    const sorting = sortBy || sortSwitcherSettings.fields 
       && sortSwitcherSettings.fields[sortSwitcherSettings.activeId] || '';
-    changeUrl(searchParams, sortBy);
+    changeUrl(searchParams, sorting);
   };
 
   const onSort = (sortBy: string) => {
-    const query = new URLSearchParams(location.search);
-    const searchParams = getSearchParams(query);
+    const searchParams = {
+      search: router.query.searchStr?.toString() || '',
+      searchBy: router.query.searchBy?.toString() || ''
+    }
     changeUrl(searchParams, sortBy);
   };
 
   const onMovieClick = (movie: Movie): void => {
-    history.push(generatePath('/movie/:id/', { id: movie.id}));
+    router.push(('/movie/' + movie.id));
   };
 
 
@@ -104,19 +69,6 @@ const MoviesPage: React.FunctionComponent<MoviesPageProps> = (props): JSX.Elemen
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  list: state.movies.list,
-  loading: state.movies.loading,
-  error: state.movies.error
-});
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getMovies: (searchParams: SearchParams, sortBy: string) => dispatch(loadMoviesStart(searchParams, sortBy)),
-  resetStore: () => dispatch(resetStore())
-});
-
-export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
-)(MoviesPage);
+export default MoviesPage;
   

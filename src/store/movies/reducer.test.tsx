@@ -4,7 +4,7 @@ import MoviesListMock from '../../components/Movies/MoviesList.mock';
 
 const initialState = {
   list: [],
-  activeMovie: undefined,
+  activeMovie: null,
   loading: false,
   error: '',
   filter: []

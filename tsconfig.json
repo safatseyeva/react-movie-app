@@ -5,14 +5,27 @@
     "strict": true,
     "noImplicitReturns": true,
     "noImplicitAny": false,
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "target": "es5",
     "allowJs": true,
-    "jsx": "react",
-    "esModuleInterop": true
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
   },
   "include": [
     "./src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

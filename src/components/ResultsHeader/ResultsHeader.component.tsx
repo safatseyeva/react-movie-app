@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import Switcher, { SwitcherSettings } from '../Switcher/Switcher.component';
 import * as css from './ResultsHeader.module.css';
@@ -18,18 +18,17 @@ export const sortSwitcherSettings: SwitcherSettings = {
 };
 
 const ResultsHeader: React.FunctionComponent<ResultsHeaderProps> = (props): JSX.Element => {
-  const location = useLocation();
+  const router = useRouter();
 
   const [activeSwitcherId, setActiveSwitcherId] = 
     useState(sortSwitcherSettings.activeId);
 
   useEffect(() => {
-    if (location.pathname === '/search') {
-      const query = new URLSearchParams(location.search);
-      const sortBy = query.get('sortBy') || '';
+    if (router.pathname === '/search') {
+      const { sortBy } = router.query;
 
       if (sortBy) {
-        const index = sortSwitcherSettings.fields?.indexOf(sortBy) || sortSwitcherSettings.activeId;
+        const index = sortSwitcherSettings.fields?.indexOf(sortBy.toString()) || sortSwitcherSettings.activeId;
         setActiveSwitcherId(index);
       }
     }
