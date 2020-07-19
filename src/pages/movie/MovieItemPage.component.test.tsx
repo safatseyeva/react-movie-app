@@ -3,7 +3,7 @@ import { render, screen } from '../../utils/testUtils';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import MovieItemPage from './MovieItemPage.component';
+import MovieItemPage from './[id]';
 import MoviesListMock from '../../components/Movies/MoviesList.mock';
 
 

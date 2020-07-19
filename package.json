@@ -8,10 +8,6 @@
     "dev:ssr": "next",
     "build:ssr": "next build",
     "start:ssr": "next start",
-    "start": "npm run lint && webpack-dev-server --progress --open --config webpack.dev.js",
-    "serve": "serve -s dist -l 4000",
-    "build:dev": "npm run lint && rimraf dist && webpack --config webpack.dev.js",
-    "build:prod": "npm run lint && rimraf dist && webpack --config webpack.prod.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -20,7 +16,6 @@
   "dependencies": {
     "@zeit/next-less": "^1.0.1",
     "axios": "^0.19.2",
-    "express": "^4.17.1",
     "next": "^9.4.4",
     "next-redux-wrapper": "^6.0.2",
     "react": "^16.13.1",
