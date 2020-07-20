@@ -1,13 +1,9 @@
 import configureMockStore from 'redux-mock-store';
 import createSagaMiddleware from 'redux-saga';
-import fetchMock from 'fetch-mock';
 
 import * as actions from './actions';
 import * as types from './types';
-import MoviesListMock from '../../components/Movies/MoviesList.mock';
 
-const sagaMiddleware = createSagaMiddleware();
-const mockStore = configureMockStore([sagaMiddleware]);
 
 const searchParams = {
   search: '',

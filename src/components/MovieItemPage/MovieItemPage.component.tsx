@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { loadMoviesStart, loadMovieItemStart, clearMovieItem} from '../../store/movies/actions';
 import { AppState } from '../../store/rootReducer';
+import { getMoviesList, getMoviesLoading, getActiveMovie, getFilter } from '../../store/movies/reducer';
 
 import { useHistory, useParams } from 'react-router-dom';
 
@@ -22,7 +23,6 @@ interface RouteParams {
 export interface MovieItemPageProps {
   list?: Array<Movie>;
   loading?: boolean;
-  error?: string;
   filter?: Array<string>;
   activeMovie?: Movie;
   getMovies(searchParams: SearchParams, sortBy: string, filter: Array<string>): void;
@@ -84,11 +84,10 @@ const MovieItemPage: React.FunctionComponent<MovieItemPageProps> = (props): JSX.
 };
 
 const mapStateToProps = (state: AppState)  => ({
-  list: state.movies.list,
-  loading: state.movies.loading,
-  error: state.movies.error,
-  filter: state.movies.filter,
-  activeMovie: state.movies.activeMovie
+  list: getMoviesList(state.movies),
+  loading: getMoviesLoading(state.movies),
+  filter: getFilter(state.movies),
+  activeMovie: getActiveMovie(state.movies)
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
