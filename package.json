@@ -51,7 +51,7 @@
     "cypress": "^4.8.0",
     "eslint": "^7.1.0",
     "eslint-plugin-react": "^7.20.0",
-    "fetch-mock": "^9.10.2",
+    "fetch-mock": "^12.5.3",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "identity-obj-proxy": "^3.0.0",
